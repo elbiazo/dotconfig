@@ -1,6 +1,17 @@
+$WindowsPrograms = @(
+	"Neovim.Neovim",
+	"glzr-io.glazewm",
+	"wez.wezterm"
+)	
+
 $MainFunction = {
-	# Moving wezterm config
+	foreach ($prog in $WindowsPrograms) {
+		Invoke-Expression ("winget install {0:}" -f $prog)
+	}
+
+	# Moving glazevm config
 	Set-Symlink ($HOME+"/.glaze-wm/config.yaml") ($PWD.ToString() + "/glazewm/config.yaml")
+	# Moving wezterm config
 	Set-Symlink ($HOME+"/.wezterm.lua") ($PWD.ToString() + "/wezterm/.wezterm.lua")
 }
 
@@ -20,7 +31,7 @@ function Set-Symlink([string]$dst, [string]$src, [switch]$backup) {
 		}
 	}
 
-	New-Item -Path $dst -ItemType SymbolicLink -Value $src 
+	New-Item -Path $dst -ItemType SymbolicLink -Value $src -Force
 }
 
 function Get-Item-Exist([string]$dst) {
