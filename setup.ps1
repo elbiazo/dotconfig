@@ -9,8 +9,12 @@ $MainFunction = {
 		Invoke-Expression ("winget install {0:}" -f $prog)
 	}
 	if (Get-Item-Exist("$PWD/nvim")) {
-		rm -r -Force ./nvim
-		git clone git@github.com:elbiazo/kickstart.nvim.git ./nvim
+		if (Get-Yes-No "Remove existing nvim?") {
+			rm -r -Force ./nvim
+			git clone git@github.com:elbiazo/kickstart.nvim.git ./nvim
+		} else {
+			info("Ignoring nvim folder")
+		}
 
 	} else {
 		git clone git@github.com:elbiazo/kickstart.nvim.git ./nvim
@@ -41,6 +45,14 @@ function Set-Symlink([string]$dst, [string]$src, [switch]$backup) {
 	}
 
 	New-Item -Path $dst -ItemType SymbolicLink -Value $src -Force
+}
+
+function Get-Yes-No([string]$msg) {
+	if ((Read-Host $msg " [y/n]") -eq "y") {
+		return $true
+	} else {
+		return $false
+	}
 }
 
 function Get-Item-Exist([string]$dst) {
