@@ -36,7 +36,7 @@ function Set-Symlink([string]$dst, [string]$src, [switch]$backup) {
 			Move-Item -Path $dst -Destination ($dst + ".old") -Force
 		} else {
 			info($dst + " exists, removing it")
-			Remove-Item $dst
+			Remove-Item $dst -r -Force
 		}
 	}
 
