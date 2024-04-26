@@ -1,7 +1,7 @@
 $WindowsPrograms = @(
 	"Neovim.Neovim",
-	"glzr-io.glazewm",
-	"wez.wezterm"
+	"glzr-io.glazewm"
+	# "wez.wezterm"
 )	
 
 $MainFunction = {
@@ -21,7 +21,7 @@ $MainFunction = {
 	}
 
 	Set-Symlink "$HOME/.glaze-wm/config.yaml" "$PWD/glazewm/config.yaml"
-	Set-Symlink "$HOME/.wezterm.lua" "$PWD/wezterm/.wezterm.lua"
+	# Set-Symlink "$HOME/.wezterm.lua" "$PWD/wezterm/.wezterm.lua"
 
 	$nvim_dst = Join-Path $env:USERPROFILE "/AppData/Local/nvim/" 
 	$nvim_src = Join-Path $PWD "/nvim/"
