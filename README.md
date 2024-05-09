@@ -1,15 +1,26 @@
 # Dot Config
 
-Contains .config for Windows and Linux
+Contains .config for Windows for now. Hopefully Linux in the future
+
+It will configure following
+
+- Powershell with Oh My Posh to make it look not shit
+- Neovim with kickstarter.nvim
+- Windows Terminal with better splitting keybind that respects current directory when splitting
+
+It did use to support following but it have been disabled
+
+- glazevm
+- wezterm
 
 ## Requirements
 
 - Powershell. Yes it requires powershell on Linux as well :^)
 - Git
 - Python
-- C Compiler (Need for Vim building tree-sitter)
+- C Compiler (e.g. clang or gcc. Need for Vim building tree-sitter)
 
-### Windows
+### Windows Requirements
 
 - Winget
 
@@ -19,7 +30,7 @@ To setup entire environment, type `pwsh ./setup.ps1`
 
 ## Font
 
-### Windows
+### Windows Oh My Posh
 
 [doc](https://ohmyposh.dev/docs/installation/fonts)
 
@@ -27,9 +38,9 @@ To setup entire environment, type `pwsh ./setup.ps1`
 oh-my-posh font install
 ```
 
-## Vim LSP
+## Vim
 
-### Mason
+### LSP via Mason Plugin
 from vim you can check what LSP you have by typing `:Mason` and You can also install LSP
 for different Language by `:MasonInstall rust-analyzer`
 
