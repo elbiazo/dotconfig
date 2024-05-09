@@ -1,13 +1,22 @@
 {
-   "actions": 
+    "actions": 
     [
         {
             "command": 
             {
-                "action": "switchToTab",
-                "index": 1
+                "action": "swapPane",
+                "direction": "up"
             },
-            "keys": "alt+2"
+            "keys": "alt+j"
+        },
+        {
+            "command": 
+            {
+                "action": "splitPane",
+                "split": "right",
+                "splitMode": "duplicate"
+            },
+            "keys": "alt+v"
         },
         {
             "command": "toggleFullscreen",
@@ -17,9 +26,9 @@
             "command": 
             {
                 "action": "switchToTab",
-                "index": 0
+                "index": 1
             },
-            "keys": "alt+1"
+            "keys": "alt+2"
         },
         {
             "command": 
@@ -28,14 +37,6 @@
                 "index": 7
             },
             "keys": "alt+8"
-        },
-        {
-            "command": 
-            {
-                "action": "switchToTab",
-                "index": 4
-            },
-            "keys": "alt+5"
         },
         {
             "command": "unbound",
@@ -94,6 +95,38 @@
             "keys": "ctrl+shift+p"
         },
         {
+            "command": "unbound",
+            "keys": "alt+shift+left"
+        },
+        {
+            "command": "unbound",
+            "keys": "alt+shift+right"
+        },
+        {
+            "command": "unbound",
+            "keys": "alt+shift+up"
+        },
+        {
+            "command": "unbound",
+            "keys": "ctrl+shift+down"
+        },
+        {
+            "command": 
+            {
+                "action": "switchToTab",
+                "index": 4
+            },
+            "keys": "alt+5"
+        },
+        {
+            "command": 
+            {
+                "action": "switchToTab",
+                "index": 0
+            },
+            "keys": "alt+1"
+        },
+        {
             "command": 
             {
                 "action": "splitPane",
@@ -103,13 +136,8 @@
             "keys": "alt+s"
         },
         {
-            "command": 
-            {
-                "action": "splitPane",
-                "split": "right",
-                "splitMode": "duplicate"
-            },
-            "keys": "alt+v"
+            "command": "togglePaneZoom",
+            "keys": "alt+z"
         },
         {
             "command": 
@@ -134,10 +162,34 @@
         {
             "command": 
             {
+                "action": "resizePane",
+                "direction": "up"
+            },
+            "keys": "alt+shift+k"
+        },
+        {
+            "command": 
+            {
                 "action": "switchToTab",
                 "index": 3
             },
             "keys": "alt+4"
+        },
+        {
+            "command": 
+            {
+                "action": "swapPane",
+                "direction": "right"
+            },
+            "keys": "alt+right"
+        },
+        {
+            "command": 
+            {
+                "action": "switchToTab",
+                "index": 6
+            },
+            "keys": "alt+7"
         },
         {
             "command": 
@@ -150,10 +202,18 @@
         {
             "command": 
             {
-                "action": "switchToTab",
-                "index": 6
+                "action": "swapPane",
+                "direction": "left"
             },
-            "keys": "alt+7"
+            "keys": "alt+left"
+        },
+        {
+            "command": 
+            {
+                "action": "swapPane",
+                "direction": "down"
+            },
+            "keys": "alt+down"
         },
         {
             "command": 
@@ -183,8 +243,7 @@
             {
                 "action": "moveFocus",
                 "direction": "down"
-            },
-            "keys": "alt+j"
+            }
         },
         {
             "command": 
@@ -193,6 +252,29 @@
                 "direction": "up"
             },
             "keys": "alt+k"
+        },
+        {
+            "command": 
+            {
+                "action": "resizePane",
+                "direction": "left"
+            },
+            "keys": "alt+shift+h"
+        },
+        {
+            "command": 
+            {
+                "action": "resizePane",
+                "direction": "right"
+            },
+            "keys": "alt+shift+l"
+        },
+        {
+            "command": 
+            {
+                "action": "scrollDown"
+            },
+            "keys": "alt+shift+j"
         }
     ]
 }
