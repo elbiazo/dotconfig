@@ -12,16 +12,13 @@ $CommonDependencies = @(
 	"python3/python",
 	"gcc/clang",
 	"git",
-	"cargo"
+	"cargo",
+	"node"
 )
 
 $WindowsDependencies = @(
 	"winget",
 	"win32yank"
-)
-
-$ChocoDependencies = @(
-	"nodejs-lts" # This needs to be run with elavated priv
 )
 
 $RustDependencies = @(

@@ -19,12 +19,22 @@ It did use to support following but it have been disabled
 - Git
 - Python
 - C Compiler (e.g. clang or gcc. Need for Vim building tree-sitter)
+- nodejs (For pyright and neovim copilot)
 
 ### Windows Requirements
 
 - Winget
+- Chocolatey Package manager
 
 ## Setup
+
+From **administrator** shell install nodejs using choco
+
+```pwsh
+choco install nodejs-lts
+```
+
+Then
 
 To setup entire environment, type `pwsh ./setup.ps1`
 
