@@ -6,6 +6,8 @@ Contains .config for Windows and Linux
 
 - Powershell. Yes it requires powershell on Linux as well :^)
 - Git
+- Python
+- C Compiler (Need for Vim building tree-sitter)
 
 ### Windows
 
@@ -14,3 +16,13 @@ Contains .config for Windows and Linux
 ## Setup
 
 To setup entire environment, type `pwsh ./setup.ps1`
+
+## Font
+
+### Windows
+
+[doc](https://ohmyposh.dev/docs/installation/fonts)
+
+```pwsh
+oh-my-posh font install
+```
