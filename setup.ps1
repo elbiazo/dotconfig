@@ -1,6 +1,6 @@
 $WindowsPrograms = @(
 	"Neovim.Neovim",
-	"glzr-io.glazewm"
+	# "glzr-io.glazewm"
 	# "wez.wezterm"
 )	
 
@@ -20,7 +20,7 @@ $MainFunction = {
 		git clone git@github.com:elbiazo/kickstart.nvim.git ./nvim
 	}
 
-	Set-Symlink "$HOME/.glaze-wm/config.yaml" "$PWD/glazewm/config.yaml"
+	# Set-Symlink "$HOME/.glaze-wm/config.yaml" "$PWD/glazewm/config.yaml"
 	# Set-Symlink "$HOME/.wezterm.lua" "$PWD/wezterm/.wezterm.lua"
 
 	$nvim_dst = Join-Path $env:USERPROFILE "/AppData/Local/nvim/" 
