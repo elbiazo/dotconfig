@@ -74,6 +74,7 @@ $MainFunction = {
 	Set-Symlink $nvim_dst $nvim_src
 }
 
+# TODO: Implement dependency check
 function Invoke-Dep-Check()
 {
 
