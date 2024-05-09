@@ -1,6 +1,7 @@
-$WindowsPrograms = @(
+$WingetPrograms = @(
 	"Neovim.Neovim",
-	"JanDeDobbeleer.OhMyPosh"
+	"JanDeDobbeleer.OhMyPosh",
+	"Chocolatey.Chocolatey"
 	# "glzr-io.glazewm"
 	# "wez.wezterm"
 )	
@@ -14,9 +15,13 @@ $CommonDependencies = @(
 	"cargo"
 )
 
-$WindowsDependencis = @(
+$WindowsDependencies = @(
 	"winget",
 	"win32yank"
+)
+
+$ChocoDependencies = @(
+	"nodejs-lts" # This needs to be run with elavated priv
 )
 
 $RustDependencies = @(
@@ -32,23 +37,29 @@ $MainFunction = {
 	# Check Dep
 	info("Checking Dependencies")
 	
-	if ($CheckDepOnly) {
+	if ($CheckDepOnly)
+	{
 		info("Only checking Dependencies bye!")
 		return
 	}
 
-	foreach ($prog in $WindowsPrograms) {
+	foreach ($prog in $WingetPrograms)
+	{
 		Invoke-Expression ("winget install {0:}" -f $prog)
 	}
-	if (Get-Item-Exist("$PWD/nvim")) {
-		if (Get-Yes-No "Remove existing nvim?") {
-			rm -r -Force ./nvim
+	if (Get-Item-Exist("$PWD/nvim"))
+	{
+		if (Get-Yes-No "Remove existing nvim?")
+		{
+			Remove-Item -r -Force ./nvim
 			git clone git@github.com:elbiazo/kickstart.nvim.git ./nvim
-		} else {
+		} else
+		{
 			info("Ignoring nvim folder")
 		}
 
-	} else {
+	} else
+	{
 		git clone git@github.com:elbiazo/kickstart.nvim.git ./nvim
 	}
 
@@ -63,21 +74,26 @@ $MainFunction = {
 	Set-Symlink $nvim_dst $nvim_src
 }
 
-function Invoke-Dep-Check() {
+function Invoke-Dep-Check()
+{
 
 }
 
 # This function will set the symlink if it doesn't exists. else it will save it
 # with .old extension and set it with new one
-function Set-Symlink([string]$dst, [string]$src, [switch]$backup) {
+function Set-Symlink([string]$dst, [string]$src, [switch]$backup)
+{
 	info("Setting Symlink {0:} <- {1:}" -f $dst, $src)
 
 	# if path exists then try to save old one
-	if (Get-Item-Exist($dst)) {
-		if ($backup){
+	if (Get-Item-Exist($dst))
+	{
+		if ($backup)
+		{
 			info($dst + " exists so move it to .old")
 			Move-Item -Path $dst -Destination ($dst + ".old") -Force
-		} else {
+		} else
+		{
 			info($dst + " exists, removing it")
 			Remove-Item $dst -r -Force
 		}
@@ -86,28 +102,40 @@ function Set-Symlink([string]$dst, [string]$src, [switch]$backup) {
 	New-Item -Path $dst -ItemType SymbolicLink -Value $src -Force
 }
 
-function Get-Yes-No([string]$msg) {
-	if ((Read-Host $msg " [y/n]") -eq "y") {
+function Get-Yes-No([string]$msg)
+{
+	if ((Read-Host $msg " [y/n]") -eq "y")
+	{
 		return $true
-	} else {
+	} else
+	{
 		return $false
 	}
 }
 
-function Get-Item-Exist([string]$dst) {
-	if (Get-Item $dst -ErrorAction SilentlyContinue) {
+function Get-Item-Exist([string]$dst)
+{
+	if (Get-Item $dst -ErrorAction SilentlyContinue)
+	{
 		return $true
-	} else {
+	} else
+	{
 		return $false
 	}
 }
 
-function Write-Info([string]$msg) {
+function Write-Info([string]$msg)
+{
 	Write-Output ("[+] {0:}" -f $msg)
 }
 
-function Get-Command-Exist([string]$cmd) {
-	if (get-command -ErrorAction SilentlyContinue $cmd) { echo $true } else { echo $false }
+function Get-Command-Exist([string]$cmd)
+{
+	if (get-command -ErrorAction SilentlyContinue $cmd)
+	{ Write-Output $true 
+ } else
+	{ Write-Output $false 
+ }
 }
 
 New-Alias -Name info -Value Write-Info
