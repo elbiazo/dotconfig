@@ -54,3 +54,6 @@ oh-my-posh font install
 from vim you can check what LSP you have by typing `:Mason` and You can also install LSP
 for different Language by `:MasonInstall rust-analyzer`
 
+### Copilot
+
+Require node to be installed. To setup type `:Copilot setup`
