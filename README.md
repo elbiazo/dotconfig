@@ -26,3 +26,10 @@ To setup entire environment, type `pwsh ./setup.ps1`
 ```pwsh
 oh-my-posh font install
 ```
+
+## Vim LSP
+
+### Mason
+from vim you can check what LSP you have by typing `:Mason` and You can also install LSP
+for different Language by `:MasonInstall rust-analyzer`
+
