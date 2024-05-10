@@ -1,0 +1,13 @@
+{
+    "profiles":{
+        "defaults": 
+        {
+            "bellStyle": "none",
+            "colorScheme": "One Half Dark",
+            "font": 
+            {
+                "face": "MesloLGL Nerd Font"
+            }
+        }
+    }
+}

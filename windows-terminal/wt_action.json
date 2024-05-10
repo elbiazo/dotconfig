@@ -243,7 +243,8 @@
             {
                 "action": "moveFocus",
                 "direction": "down"
-            }
+            },
+            "keys": "alt+j"
         },
         {
             "command": 
