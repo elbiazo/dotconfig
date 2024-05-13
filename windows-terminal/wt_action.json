@@ -4,10 +4,22 @@
         {
             "command": 
             {
-                "action": "swapPane",
-                "direction": "up"
+                "action": "moveFocus",
+                "direction": "down"
             },
             "keys": "alt+j"
+        },
+        {
+            "command": 
+            {
+                "action": "switchToTab",
+                "index": 1
+            },
+            "keys": "alt+2"
+        },
+        {
+            "command": "toggleFullscreen",
+            "keys": "alt+m"
         },
         {
             "command": 
@@ -19,16 +31,20 @@
             "keys": "alt+v"
         },
         {
-            "command": "toggleFullscreen",
-            "keys": "alt+m"
+            "command": 
+            {
+                "action": "switchToTab",
+                "index": 0
+            },
+            "keys": "alt+1"
         },
         {
             "command": 
             {
                 "action": "switchToTab",
-                "index": 1
+                "index": 4
             },
-            "keys": "alt+2"
+            "keys": "alt+5"
         },
         {
             "command": 
@@ -92,10 +108,6 @@
         },
         {
             "command": "unbound",
-            "keys": "ctrl+shift+p"
-        },
-        {
-            "command": "unbound",
             "keys": "alt+shift+left"
         },
         {
@@ -111,20 +123,12 @@
             "keys": "ctrl+shift+down"
         },
         {
-            "command": 
-            {
-                "action": "switchToTab",
-                "index": 4
-            },
-            "keys": "alt+5"
+            "command": "unbound",
+            "keys": "ctrl+shift+d"
         },
         {
-            "command": 
-            {
-                "action": "switchToTab",
-                "index": 0
-            },
-            "keys": "alt+1"
+            "command": "togglePaneZoom",
+            "keys": "alt+z"
         },
         {
             "command": 
@@ -134,10 +138,6 @@
                 "splitMode": "duplicate"
             },
             "keys": "alt+s"
-        },
-        {
-            "command": "togglePaneZoom",
-            "keys": "alt+z"
         },
         {
             "command": 
@@ -154,10 +154,25 @@
         {
             "command": 
             {
+                "action": "prevTab"
+            },
+            "keys": "alt+p"
+        },
+        {
+            "command": 
+            {
                 "action": "switchToTab",
                 "index": 2
             },
             "keys": "alt+3"
+        },
+        {
+            "command": 
+            {
+                "action": "switchToTab",
+                "index": 3
+            },
+            "keys": "alt+4"
         },
         {
             "command": 
@@ -171,9 +186,9 @@
             "command": 
             {
                 "action": "switchToTab",
-                "index": 3
+                "index": 6
             },
-            "keys": "alt+4"
+            "keys": "alt+7"
         },
         {
             "command": 
@@ -182,14 +197,6 @@
                 "direction": "right"
             },
             "keys": "alt+right"
-        },
-        {
-            "command": 
-            {
-                "action": "switchToTab",
-                "index": 6
-            },
-            "keys": "alt+7"
         },
         {
             "command": 
@@ -218,13 +225,6 @@
         {
             "command": 
             {
-                "action": "commandPalette"
-            },
-            "keys": "ctrl+p"
-        },
-        {
-            "command": 
-            {
                 "action": "moveFocus",
                 "direction": "right"
             },
@@ -239,12 +239,8 @@
             "keys": "alt+h"
         },
         {
-            "command": 
-            {
-                "action": "moveFocus",
-                "direction": "down"
-            },
-            "keys": "alt+j"
+            "command": "duplicateTab",
+            "keys": "alt+c"
         },
         {
             "command": 
@@ -276,6 +272,13 @@
                 "action": "scrollDown"
             },
             "keys": "alt+shift+j"
+        },
+        {
+            "command": 
+            {
+                "action": "nextTab"
+            },
+            "keys": "alt+n"
         }
     ]
 }
