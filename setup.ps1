@@ -69,9 +69,14 @@ $MainFunction = {
 function LinuxConfig
 {
 
-	sudo add-apt-repository ppa:neovim-ppa/unstable
-	sudo apt-get update
-	sudo apt-get install neovim
+	if (!(Get-Command nvim -ErrorAction SilentlyContinue)){
+		info("Neovim not found, installing")
+		sudo add-apt-repository ppa:neovim-ppa/unstable
+		sudo apt-get update
+		sudo apt-get install neovim
+	} else {
+		info("Neovim found")
+	}
 
 	$nvim_dst = Join-Path $env:HOME "/.config/nvim/" 
 	$nvim_src = Join-Path $PWD "/nvim/"
@@ -119,7 +124,11 @@ function Set-Symlink([string]$dst, [string]$src, [switch]$backup)
 		} else
 		{
 			info($dst + " exists, removing it")
-			Remove-Item $dst -r -Force
+			if ($IsWindows){
+				Remove-Item $dst -r -Force
+			} else {
+				rm -rf $dst # Remove-Item doesn't remove symlink in unix
+			}
 		}
 	}
 
