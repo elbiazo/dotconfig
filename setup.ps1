@@ -127,7 +127,7 @@ function Set-Symlink([string]$dst, [string]$src, [switch]$backup)
 			if ($IsWindows){
 				Remove-Item $dst -r -Force
 			} else {
-				rm -rf $dst # Remove-Item doesn't remove symlink in unix
+				rm -f $dst # Remove-Item doesn't remove symlink in unix
 			}
 		}
 	}
