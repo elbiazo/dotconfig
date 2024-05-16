@@ -30,7 +30,6 @@ $MainFunction = {
 	param(
 		[switch] $CheckDepOnly
 	)
-	
 	# Check Dep
 	info("Checking Dependencies")
 	
@@ -40,10 +39,7 @@ $MainFunction = {
 		return
 	}
 
-	foreach ($prog in $WingetPrograms)
-	{
-		Invoke-Expression ("winget install {0:}" -f $prog)
-	}
+	# Clone nvim
 	if (Get-Item-Exist("$PWD/nvim"))
 	{
 		if (Get-Yes-No "Remove existing nvim?")
@@ -60,6 +56,35 @@ $MainFunction = {
 		git clone git@github.com:elbiazo/kickstart.nvim.git ./nvim
 	}
 
+	if ($IsWindows)
+	{
+		WindowsConfig
+	} elseif ($IsLinux)
+	{
+		LinuxConfig
+	} else {
+		info("Unsupported OS")
+	}
+}
+function LinuxConfig
+{
+
+	sudo add-apt-repository ppa:neovim-ppa/unstable
+	sudo apt-get update
+	sudo apt-get install neovim
+
+	$nvim_dst = Join-Path $env:HOME "/.config/nvim/" 
+	$nvim_src = Join-Path $PWD "/nvim/"
+	Set-Symlink $nvim_dst $nvim_src
+}
+
+function WindowsConfig
+{
+	foreach ($prog in $WingetPrograms)
+	{
+		Invoke-Expression ("winget install {0:}" -f $prog)
+	}
+
 	# Set-Symlink "$HOME/.glaze-wm/config.yaml" "$PWD/glazewm/config.yaml"
 	# Set-Symlink "$HOME/.wezterm.lua" "$PWD/wezterm/.wezterm.lua"
 	
@@ -69,6 +94,7 @@ $MainFunction = {
 	$nvim_dst = Join-Path $env:USERPROFILE "/AppData/Local/nvim/" 
 	$nvim_src = Join-Path $PWD "/nvim/"
 	Set-Symlink $nvim_dst $nvim_src
+
 }
 
 # TODO: Implement dependency check
