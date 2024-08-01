@@ -71,16 +71,28 @@ function LinuxConfig
 
 	if (!(Get-Command nvim -ErrorAction SilentlyContinue)){
 		info("Neovim not found, installing")
+		sudo apt purge vim -y
 		sudo add-apt-repository ppa:neovim-ppa/unstable
 		sudo apt-get update
-		sudo apt-get install neovim
+		sudo apt-get install neovim clangd unzip -y
 	} else {
 		info("Neovim found")
+	}
+
+	if (!(Get-Command tmux -ErrorAction SilentlyContinue)){
+		info("Neovim not found, installing")
+		sudo apt-get update
+		sudo apt-get install tmux
+	} else {
+		info("TMUX found")
 	}
 
 	$nvim_dst = Join-Path $env:HOME "/.config/nvim/" 
 	$nvim_src = Join-Path $PWD "/nvim/"
 	Set-Symlink $nvim_dst $nvim_src
+
+	$tmux_dst = Join-Path $env:HOME ".tmux.conf"
+	Set-Symlink $tmux_dst "$PWD/tmux/tmux.conf"
 }
 
 function WindowsConfig
