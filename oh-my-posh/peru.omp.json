@@ -6,6 +6,11 @@
       "alignment": "left",
       "segments": [
         {
+          "type": "text",
+          "style": "plain",
+          "template": "{{ .Env.OSC7 }}"
+        },
+        {
           "foreground": "#26C6DA",
           "style": "plain",
           "template": "{{ if .WSL }}WSL at {{ end }}{{.Icon}} ",

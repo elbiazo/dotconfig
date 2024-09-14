@@ -3,7 +3,7 @@ $WingetPrograms = @(
 	"JanDeDobbeleer.OhMyPosh",
 	"Chocolatey.Chocolatey"
 	# "glzr-io.glazewm"
-	# "wez.wezterm"
+	"wez.wezterm"
 )	
 
 
@@ -62,28 +62,33 @@ $MainFunction = {
 	} elseif ($IsLinux)
 	{
 		LinuxConfig
-	} else {
+	} else
+	{
 		info("Unsupported OS")
 	}
 }
 function LinuxConfig
 {
 
-	if (!(Get-Command nvim -ErrorAction SilentlyContinue)){
+	if (!(Get-Command nvim -ErrorAction SilentlyContinue))
+	{
 		info("Neovim not found, installing")
 		sudo apt purge vim -y
 		sudo add-apt-repository ppa:neovim-ppa/unstable
 		sudo apt-get update
 		sudo apt-get install neovim clangd unzip -y
-	} else {
+	} else
+	{
 		info("Neovim found")
 	}
 
-	if (!(Get-Command tmux -ErrorAction SilentlyContinue)){
+	if (!(Get-Command tmux -ErrorAction SilentlyContinue))
+	{
 		info("Neovim not found, installing")
 		sudo apt-get update
 		sudo apt-get install tmux
-	} else {
+	} else
+	{
 		info("TMUX found")
 	}
 
@@ -102,8 +107,8 @@ function WindowsConfig
 		Invoke-Expression ("winget install {0:}" -f $prog)
 	}
 
-	# Set-Symlink "$HOME/.glaze-wm/config.yaml" "$PWD/glazewm/config.yaml"
-	# Set-Symlink "$HOME/.wezterm.lua" "$PWD/wezterm/.wezterm.lua"
+	Set-Symlink "$HOME/.glaze-wm/config.yaml" "$PWD/glazewm/config.yaml"
+	Set-Symlink "$HOME/.wezterm.lua" "$PWD/wezterm/.wezterm.lua"
 	
 	Set-Symlink "$PROFILE/../oh-my-posh/peru.omp.json" "$PWD/oh-my-posh/peru.omp.json"
 	Set-Symlink $PROFILE "$PWD/pwsh/Microsoft.PowerShell_profile.ps1"
@@ -136,9 +141,11 @@ function Set-Symlink([string]$dst, [string]$src, [switch]$backup)
 		} else
 		{
 			info($dst + " exists, removing it")
-			if ($IsWindows){
+			if ($IsWindows)
+			{
 				Remove-Item $dst -r -Force
-			} else {
+			} else
+			{
 				rm -f $dst # Remove-Item doesn't remove symlink in unix
 			}
 		}
