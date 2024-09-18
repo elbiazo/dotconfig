@@ -110,7 +110,7 @@ function WindowsConfig
 	Set-Symlink "$HOME/.glaze-wm/config.yaml" "$PWD/glazewm/config.yaml"
 	Set-Symlink "$HOME/.wezterm.lua" "$PWD/wezterm/.wezterm.lua"
 	
-	Set-Symlink "$PROFILE/../oh-my-posh/peru.omp.json" "$PWD/oh-my-posh/peru.omp.json"
+	# Set-Symlink "$PROFILE/../oh-my-posh/peru.omp.json" "$PWD/oh-my-posh/peru.omp.json"
 	Set-Symlink $PROFILE "$PWD/pwsh/Microsoft.PowerShell_profile.ps1"
 
 	$nvim_dst = Join-Path $env:USERPROFILE "/AppData/Local/nvim/" 
