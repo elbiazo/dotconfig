@@ -1,11 +1,8 @@
 $WingetPrograms = @(
-	"Neovim.Neovim",
-	"JanDeDobbeleer.OhMyPosh",
-	"Chocolatey.Chocolatey"
-	# "glzr-io.glazewm"
-	"wez.wezterm"
+	"Neovim.Neovim"
 )	
 
+$NeovimConfig = "git@github.com:elbiazo/kickstart.nvim.git"
 
 # / will be split and will be ORed
 $CommonDependencies = @(
@@ -45,7 +42,7 @@ $MainFunction = {
 		if (Get-Yes-No "Remove existing nvim?")
 		{
 			Remove-Item -r -Force ./nvim
-			git clone git@github.com:elbiazo/kickstart.nvim.git ./nvim
+			git clone $NeovimConfig ./nvim
 		} else
 		{
 			info("Ignoring nvim folder")
@@ -53,7 +50,7 @@ $MainFunction = {
 
 	} else
 	{
-		git clone git@github.com:elbiazo/kickstart.nvim.git ./nvim
+		git clone $NeovimConfig ./nvim
 	}
 
 	if ($IsWindows)
@@ -107,21 +104,9 @@ function WindowsConfig
 		Invoke-Expression ("winget install {0:}" -f $prog)
 	}
 
-	Set-Symlink "$HOME/.glaze-wm/config.yaml" "$PWD/glazewm/config.yaml"
-	Set-Symlink "$HOME/.wezterm.lua" "$PWD/wezterm/.wezterm.lua"
-	
-	Set-Symlink "$PROFILE/../oh-my-posh/peru.omp.json" "$PWD/oh-my-posh/peru.omp.json"
-	Set-Symlink $PROFILE "$PWD/pwsh/Microsoft.PowerShell_profile.ps1"
-
 	$nvim_dst = Join-Path $env:USERPROFILE "/AppData/Local/nvim/" 
 	$nvim_src = Join-Path $PWD "/nvim/"
 	Set-Symlink $nvim_dst $nvim_src
-
-}
-
-# TODO: Implement dependency check
-function Invoke-Dep-Check()
-{
 
 }
 
@@ -191,6 +176,5 @@ function Get-Command-Exist([string]$cmd)
 }
 
 New-Alias -Name info -Value Write-Info
-
 
 & $MainFunction
