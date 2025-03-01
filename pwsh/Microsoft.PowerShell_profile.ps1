@@ -9,7 +9,7 @@ function prompt {
         $provider_path = $p.ProviderPath -Replace "\\", "/"
         $osc7 = "$ansi_escape]7;file://${env:COMPUTERNAME}/${provider_path}${ansi_escape}\"
     }
-    "${osc7}PS $p$('>' * ($nestedPromptLevel + 1)) ";
+    "${osc7}$p$('>' * ($nestedPromptLevel + 1)) ";
 }
 
 function Enter-Dev {
