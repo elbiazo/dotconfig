@@ -1,27 +1,9 @@
 $WingetPrograms = @(
-	"Neovim.Neovim"
+	"Neovim.Neovim",
+	"wez.wezterm"
 )	
 
 $NeovimConfig = "git@github.com:elbiazo/kickstart.nvim.git"
-
-# / will be split and will be ORed
-$CommonDependencies = @(
-	"python3/python",
-	"gcc/clang",
-	"git",
-	"cargo",
-	"node"
-)
-
-$WindowsDependencies = @(
-	"winget",
-	"win32yank"
-)
-
-$RustDependencies = @(
-	"ripgrep/rg",
-	"fd-find/fd"
-)
 
 $MainFunction = {
 	param(
@@ -108,6 +90,7 @@ function WindowsConfig
 	$nvim_src = Join-Path $PWD "/nvim/"
 	Set-Symlink $nvim_dst $nvim_src
 
+	Set-Symlink "$HOME/.wezterm.lua" "$PWD/wezterm/.wezterm.lua"
 }
 
 # This function will set the symlink if it doesn't exists. else it will save it
@@ -131,7 +114,7 @@ function Set-Symlink([string]$dst, [string]$src, [switch]$backup)
 				Remove-Item $dst -r -Force
 			} else
 			{
-				rm -f $dst # Remove-Item doesn't remove symlink in unix
+				Remove-Item -f $dst # Remove-Item doesn't remove symlink in unix
 			}
 		}
 	}
