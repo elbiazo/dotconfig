@@ -19,7 +19,7 @@ function Enter-Dev {
 }
 
 Set-Alias -Name dev -Value Enter-Dev
-Set-Alias -Name vim -Value nvim
 Set-Alias -Name gh -Value Get-Help
 Set-Alias -Name ll -Value ls
 Set-Alias -Name sl -Value ls -Force
+Set-Alias -Name vim -Value nvim

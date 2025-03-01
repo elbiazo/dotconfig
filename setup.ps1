@@ -91,6 +91,7 @@ function WindowsConfig
 	Set-Symlink $nvim_dst $nvim_src
 
 	Set-Symlink "$HOME/.wezterm.lua" "$PWD/wezterm/.wezterm.lua"
+	Set-Symlink $profile "$PWD/pwsh/Microsoft.PowerShell_profile.ps1"
 }
 
 # This function will set the symlink if it doesn't exists. else it will save it
