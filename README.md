@@ -4,13 +4,7 @@ Contains .config for Windows for now. Hopefully Linux in the future
 
 It will configure following
 
-- Powershell with Oh My Posh to make it look not shit
 - Neovim with kickstarter.nvim
-- Windows Terminal with better splitting keybind that respects current directory when splitting
-
-It did use to support following but it have been disabled
-
-- glazevm
 - wezterm
 
 ## Requirements
@@ -37,16 +31,6 @@ choco install nodejs-lts
 Then
 
 To setup entire environment, type `pwsh ./setup.ps1`
-
-## Font
-
-### Windows Oh My Posh
-
-[doc](https://ohmyposh.dev/docs/installation/fonts)
-
-```pwsh
-oh-my-posh font install
-```
 
 ## Vim
 
