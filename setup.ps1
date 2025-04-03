@@ -1,5 +1,5 @@
 $WingetPrograms = @(
-	"Neovim.Neovim",
+	"Neovim.Neovim.Nightly",
 	"wez.wezterm"
 )	
 
