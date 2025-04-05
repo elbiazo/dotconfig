@@ -2,13 +2,18 @@
 # Q: https://github.com/wezterm/wezterm/issues/5335
 # A: https://wezfurlong.org/wezterm/shell-integration.html#osc-7-on-windows-with-powershell-with-starship
 function prompt {
-    $p = $executionContext.SessionState.Path.CurrentLocation
     $osc7 = ""
-    if ($p.Provider.Name -eq "FileSystem") {
-        $ansi_escape = [char]27
-        $provider_path = $p.ProviderPath -Replace "\\", "/"
-        $osc7 = "$ansi_escape]7;file://${env:COMPUTERNAME}/${provider_path}${ansi_escape}\"
+    $p = $executionContext.SessionState.Path.CurrentLocation
+
+    # Need to change \\ to / for WezTerm multiplexer. Doing this to vscode will break split term because it won't be able to found CWD
+    if($env:TERM_PROGRAM -eq "WezTerm"){
+        if ($p.Provider.Name -eq "FileSystem") {
+            $ansi_escape = [char]27
+            $provider_path = $p.ProviderPath -Replace "\\", "/"
+            $osc7 = "$ansi_escape]7;file://${env:COMPUTERNAME}/${provider_path}${ansi_escape}\"
+        }
     }
+
     "${osc7}$p$('>' * ($nestedPromptLevel + 1)) ";
 }
 
