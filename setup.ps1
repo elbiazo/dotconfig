@@ -92,6 +92,9 @@ function WindowsConfig
 
 	Set-Symlink "$HOME/.wezterm.lua" "$PWD/wezterm/.wezterm.lua"
 	Set-Symlink $profile "$PWD/pwsh/Microsoft.PowerShell_profile.ps1"
+
+	# Setting Sym Server Config for Process Exploerer and Windbg
+	.\symsrv\set_sym_env.ps1
 }
 
 # This function will set the symlink if it doesn't exists. else it will save it
