@@ -1,7 +1,11 @@
 $WingetPrograms = @(
 	"Neovim.Neovim",
 	"wez.wezterm",
-	"Microsoft.PowerToys"
+	"Microsoft.PowerToys",
+	"OpenJS.NodeJS.LTS",
+	"Microsoft.Git",
+	"Python.Python.3.13",
+	"LLVM.LLVM"
 )	
 
 $NeovimConfig = "git@github.com:elbiazo/kickstart.nvim.git"

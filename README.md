@@ -1,11 +1,13 @@
 # Dot Config
 
-Contains .config for Windows for now. Hopefully Linux in the future
+Contains .config for Windows for now.
 
 It will configure following
 
+- Update pwsh config
 - Neovim with kickstarter.nvim
 - wezterm
+- Add Env Path
 
 ## Requirements
 
@@ -18,17 +20,8 @@ It will configure following
 ### Windows Requirements
 
 - Winget
-- Chocolatey Package manager
 
 ## Setup
-
-From **administrator** shell install nodejs using choco
-
-```pwsh
-choco install nodejs-lts
-```
-
-Then
 
 To setup entire environment, type `pwsh ./setup.ps1`
 
@@ -40,4 +33,4 @@ for different Language by `:MasonInstall rust-analyzer`
 
 ### Copilot
 
-Require node to be installed. To setup type `:Copilot setup`
+**Currently Disabled**.Require node to be installed. To setup type `:Copilot setup`
