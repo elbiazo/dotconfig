@@ -20,7 +20,7 @@ function Set-Symlink([string]$dst, [string]$src, [switch]$backup) {
         }
     }
 
-    New-Item -Path $dst -ItemType SymbolicLink -Value $src -Force
+    New-Item -Path $dst -ItemType SymbolicLink -Value $src -Force | Out-Null
 }
 
 function Get-Yes-No([string]$msg) {

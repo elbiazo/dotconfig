@@ -5,7 +5,8 @@ $WingetPrograms = @(
 	"OpenJS.NodeJS.LTS",
 	"Microsoft.Git",
 	"Python.Python.3.13",
-	"LLVM.LLVM"
+	"LLVM.LLVM",
+	"Microsoft.VisualStudioCode"
 )	
 
 $NeovimConfig = "git@github.com:elbiazo/kickstart.nvim.git"
@@ -33,17 +34,17 @@ $MainFunction = {
 		}
 
 	}
- else {
+	else {
 		git clone $NeovimConfig ./nvim
 	}
 
 	if ($IsWindows) {
 		WindowsConfig
 	}
- elseif ($IsLinux) {
+	elseif ($IsLinux) {
 		LinuxConfig
 	}
- else {
+	else {
 		info("Unsupported OS")
 	}
 }
@@ -56,7 +57,7 @@ function LinuxConfig {
 		sudo apt-get update
 		sudo apt-get install neovim clangd unzip -y
 	}
- else {
+	else {
 		info("Neovim found")
 	}
 
@@ -65,7 +66,7 @@ function LinuxConfig {
 		sudo apt-get update
 		sudo apt-get install tmux
 	}
- else {
+	else {
 		info("TMUX found")
 	}
 
@@ -76,7 +77,6 @@ function LinuxConfig {
 	$tmux_dst = Join-Path $env:HOME ".tmux.conf"
 	Set-Symlink $tmux_dst "$PWD/tmux/tmux.conf"
 }
-
 function WindowsConfig {
 	foreach ($prog in $WingetPrograms) {
 		Invoke-Expression ("winget install {0:}" -f $prog)
@@ -91,6 +91,8 @@ function WindowsConfig {
 
 	# Setting Sym Server Config for Process Exploerer and Windbg
 	Set-Env "_NT_SYMBOL_PATH" $sym_config
+
+	Set-Env "GLAZEWM_CONFIG_PATH" $PSScriptRoot/glazewm/config.yaml
 }
 
 
