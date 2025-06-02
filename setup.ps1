@@ -92,7 +92,7 @@ function WindowsConfig {
 	# Setting Sym Server Config for Process Exploerer and Windbg
 	Set-Env "_NT_SYMBOL_PATH" $sym_config
 
-	Set-Env "GLAZEWM_CONFIG_PATH" $PSScriptRoot/glazewm/config.yaml
+	# Set-Env "GLAZEWM_CONFIG_PATH" $PSScriptRoot/glazewm/config.yaml
 }
 
 
