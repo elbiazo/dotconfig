@@ -8,7 +8,7 @@ end
 
 config.audible_bell = "Disabled"
 config.check_for_updates = true
-config.color_scheme = "Dracula"
+config.color_scheme = "Dracula (Official)"
 config.font_size = 12.0
 config.hide_tab_bar_if_only_one_tab = true
 config.leader = { key = "b", mods = "CTRL" }

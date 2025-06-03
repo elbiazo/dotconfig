@@ -23,6 +23,12 @@ function Enter-Dev {
     Enter-VsDevShell -VsInstallPath $vsPath -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64 -no_logo'
 }
 
+function Update-Path {
+    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") +
+                ";" +
+                [System.Environment]::GetEnvironmentVariable("Path","User")
+}
+
 Set-Alias -Name dev -Value Enter-Dev
 Set-Alias -Name gh -Value Get-Help
 Set-Alias -Name ll -Value ls
