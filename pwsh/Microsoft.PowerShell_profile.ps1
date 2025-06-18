@@ -44,6 +44,30 @@ function Format-NumHex{
     '0x{0:x}' -f $num
 }
 
+Function Set-Path {
+    param (
+        [string]$AddPath,
+        [string]$RemovePath,
+        [ValidateSet('Process', 'User', 'Machine')]
+        [string]$Scope = 'Process'
+    )
+    $regexPaths = @()
+    if ($PSBoundParameters.Keys -contains 'AddPath') {
+        $regexPaths += [regex]::Escape($AddPath)
+    }
+
+    if ($PSBoundParameters.Keys -contains 'RemovePath') {
+        $regexPaths += [regex]::Escape($RemovePath)
+    }
+    
+    $arrPath = [System.Environment]::GetEnvironmentVariable('PATH', $Scope) -split ';'
+    foreach ($path in $regexPaths) {
+        $arrPath = $arrPath | Where-Object { $_ -notMatch "^$path\\?" }
+    }
+    $value = ($arrPath + $addPath) -join ';'
+    [System.Environment]::SetEnvironmentVariable('PATH', $value, $Scope)
+}
+
 Set-Alias -Name dev -Value Enter-Dev
 Set-Alias -Name pdev -Value Enter-PreviewDev
 Set-Alias -Name gh -Value Get-Help
