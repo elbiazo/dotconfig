@@ -36,9 +36,19 @@ function Update-Path {
                 [System.Environment]::GetEnvironmentVariable("Path","User")
 }
 
+function Format-NumHex{
+    param(
+        [Parameter(Mandatory=$true, Position=0)]
+        [int]$num
+     )
+    '0x{0:x}' -f $num
+}
+
 Set-Alias -Name dev -Value Enter-Dev
 Set-Alias -Name pdev -Value Enter-PreviewDev
 Set-Alias -Name gh -Value Get-Help
 Set-Alias -Name ll -Value ls
 Set-Alias -Name sl -Value ls -Force
 Set-Alias -Name vim -Value nvim
+Set-Alias -Name hex -Value Format-NumHex
+
