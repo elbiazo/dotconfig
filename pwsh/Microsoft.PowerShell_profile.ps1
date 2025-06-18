@@ -22,6 +22,13 @@ function Enter-Dev {
     Import-Module $vsPath/Common7/Tools/Microsoft.VisualStudio.DevShell.dll
     Enter-VsDevShell -VsInstallPath $vsPath -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64 -no_logo'
 }
+function Enter-PreviewDev {
+    $vspath = &"${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe" -property installationpath
+    $vspath = Split-Path $vspath
+    $vspath += "/Preview"
+    Import-Module $vsPath/Common7/Tools/Microsoft.VisualStudio.DevShell.dll
+    Enter-VsDevShell -VsInstallPath $vsPath -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64 -no_logo'
+}
 
 function Update-Path {
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") +
@@ -30,6 +37,7 @@ function Update-Path {
 }
 
 Set-Alias -Name dev -Value Enter-Dev
+Set-Alias -Name pdev -Value Enter-PreviewDev
 Set-Alias -Name gh -Value Get-Help
 Set-Alias -Name ll -Value ls
 Set-Alias -Name sl -Value ls -Force
