@@ -75,4 +75,4 @@ Set-Alias -Name ll -Value ls
 Set-Alias -Name sl -Value ls -Force
 Set-Alias -Name vim -Value nvim
 Set-Alias -Name hex -Value Format-NumHex
-
+Set-Alias -Name count -Value Measure-Object
