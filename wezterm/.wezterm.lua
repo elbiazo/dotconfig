@@ -39,6 +39,7 @@ config.keys = {
 	{ key = "p", mods = "LEADER", action = wezterm.action.ActivateTabRelative(-1) },
 	{ key = "&", mods = "LEADER|SHIFT", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
 	{ key = "x", mods = "LEADER", action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
+	{ key = 'Enter', mods = 'ALT', action = wezterm.action.DisableDefaultAssignment },
 }
 
 return config
