@@ -13,6 +13,7 @@ config.font_size = 12.0
 config.hide_tab_bar_if_only_one_tab = true
 config.leader = { key = "b", mods = "CTRL" }
 config.keys = {
+	{ key = "w", mods = "LEADER", action = wezterm.action.ShowTabNavigator },
 	{ key = "a", mods = "LEADER|CTRL", action = wezterm.action({ SendString = "\x01" }) },
 	{ key = "s", mods = "LEADER", action = wezterm.action({ SplitVertical = { domain = "CurrentPaneDomain" } }) },
 	{ key = "v", mods = "LEADER", action = wezterm.action({ SplitHorizontal = { domain = "CurrentPaneDomain" } }) },
@@ -39,7 +40,7 @@ config.keys = {
 	{ key = "p", mods = "LEADER", action = wezterm.action.ActivateTabRelative(-1) },
 	{ key = "&", mods = "LEADER|SHIFT", action = wezterm.action({ CloseCurrentTab = { confirm = true } }) },
 	{ key = "x", mods = "LEADER", action = wezterm.action({ CloseCurrentPane = { confirm = true } }) },
-	{ key = 'Enter', mods = 'ALT', action = wezterm.action.DisableDefaultAssignment },
+	{ key = "Enter", mods = "ALT", action = wezterm.action.DisableDefaultAssignment },
 }
 
 return config

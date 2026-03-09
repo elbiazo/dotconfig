@@ -19,7 +19,26 @@ function prompt {
 
 function Enter-Dev {
     $vspath = &"${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe" -property installationpath
+
+    if ($vspath -is [array]) {
+        Write-Output "Multiple Visual Studio installations found."
+        for ($i = 0; $i -lt $vspath.Length; $i++) {
+            Write-Output "[$i]: $($vspath[$i])"
+        }
+        $vs_selection = Read-Host "Enter the number of the installation to use: "
+
+        if ($vs_selection -lt 0 -or $vs_selection -ge $vspath.Length) {
+            Write-Error "Invalid selection. Exiting."
+            return
+        } else {
+            $vspath = $vspath[$vs_selection]
+        }
+    }
+
+
     Import-Module $vsPath/Common7/Tools/Microsoft.VisualStudio.DevShell.dll
+
+    Write-Host "Entering Visual Studio Developer Shell at: $vsPath"
     Enter-VsDevShell -VsInstallPath $vsPath -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64 -no_logo'
 }
 function Enter-PreviewDev {

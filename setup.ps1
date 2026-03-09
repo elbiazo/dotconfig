@@ -11,6 +11,7 @@ $WingetPrograms = @(
 
 $NeovimConfig = "git@github.com:elbiazo/kickstart.nvim.git"
 $sym_config = "srv*C:\symbols*https://msdl.microsoft.com/download/symbols"
+
 $MainFunction = {
 	param(
 		[switch] $CheckDepOnly
@@ -18,55 +19,62 @@ $MainFunction = {
 	# Check Dep
 	info("Checking Dependencies")
 	
-	if ($CheckDepOnly) {
+	if ($CheckDepOnly)
+ {
 		info("Only checking Dependencies bye!")
 		return
 	}
 
 	# Clone nvim
-	if (Get-Item-Exist("$PWD/nvim")) {
-		if (Get-Yes-No "Remove existing nvim?") {
+	if (Get-Item-Exist("$PWD/nvim"))
+	{
+		if (Get-Yes-No "Remove existing nvim?")
+		{
 			Remove-Item -r -Force ./nvim
 			git clone $NeovimConfig ./nvim
-		}
-		else {
+		} else
+		{
 			info("Ignoring nvim folder")
 		}
 
-	}
-	else {
+	} else
+	{
 		git clone $NeovimConfig ./nvim
 	}
 
-	if ($IsWindows) {
+	if ($IsWindows)
+	{
 		WindowsConfig
-	}
-	elseif ($IsLinux) {
+	} elseif ($IsLinux)
+	{
 		LinuxConfig
-	}
-	else {
+	} else
+	{
 		info("Unsupported OS")
 	}
 }
-function LinuxConfig {
+function LinuxConfig
+{
 
-	if (!(Get-Command nvim -ErrorAction SilentlyContinue)) {
+	if (!(Get-Command nvim -ErrorAction SilentlyContinue))
+	{
 		info("Neovim not found, installing")
 		sudo apt purge vim -y
 		sudo add-apt-repository ppa:neovim-ppa/unstable
 		sudo apt-get update
 		sudo apt-get install neovim clangd unzip -y
-	}
-	else {
+	} else
+	{
 		info("Neovim found")
 	}
 
-	if (!(Get-Command tmux -ErrorAction SilentlyContinue)) {
+	if (!(Get-Command tmux -ErrorAction SilentlyContinue))
+	{
 		info("Neovim not found, installing")
 		sudo apt-get update
 		sudo apt-get install tmux
-	}
-	else {
+	} else
+	{
 		info("TMUX found")
 	}
 
@@ -77,8 +85,10 @@ function LinuxConfig {
 	$tmux_dst = Join-Path $env:HOME ".tmux.conf"
 	Set-Symlink $tmux_dst "$PWD/tmux/tmux.conf"
 }
-function WindowsConfig {
-	foreach ($prog in $WingetPrograms) {
+function WindowsConfig
+{
+	foreach ($prog in $WingetPrograms)
+	{
 		Invoke-Expression ("winget install {0:}" -f $prog)
 	}
 
@@ -90,7 +100,7 @@ function WindowsConfig {
 	Set-Symlink $profile "$PWD/pwsh/Microsoft.PowerShell_profile.ps1"
 
 	# Setting Sym Server Config for Process Exploerer and Windbg
-	Set-Env "_NT_SYMBOL_PATH" $sym_config
+	# Set-Env "_NT_SYMBOL_PATH" $sym_config
 
 	# Set-Env "GLAZEWM_CONFIG_PATH" $PSScriptRoot/glazewm/config.yaml
 }
