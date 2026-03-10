@@ -26,7 +26,7 @@ $MainFunction = {
 	}
 
 	# Clone nvim
-	if (Get-Item-Exist("$PWD/nvim"))
+	if (Get-ItemExist("$PWD/nvim"))
 	{
 		if (Get-Yes-No "Remove existing nvim?")
 		{

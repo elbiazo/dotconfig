@@ -4,7 +4,7 @@ function Set-Symlink([string]$dst, [string]$src, [switch]$backup) {
     info("Setting Symlink {0:} <- {1:}" -f $dst, $src)
 
     # if path exists then try to save old one
-    if (Get-Item-Exist($dst)) {
+    if (Get-ItemExist($dst)) {
         if ($backup) {
             info($dst + " exists so move it to .old")
             Move-Item -Path $dst -Destination ($dst + ".old") -Force
@@ -15,7 +15,7 @@ function Set-Symlink([string]$dst, [string]$src, [switch]$backup) {
                 Remove-Item $dst -r -Force
             }
             else {
-                Remove-Item -f $dst # Remove-Item doesn't remove symlink in unix
+                Remove-Item -Force $dst.TrimEnd('/') # In linux we need to remove \ since symlink is a file and not a directory
             }
         }
     }
@@ -32,7 +32,7 @@ function Get-Yes-No([string]$msg) {
     }
 }
 
-function Get-Item-Exist([string]$dst) {
+function Get-ItemExist([string]$dst) {
     if (Get-Item $dst -ErrorAction SilentlyContinue) {
         return $true
     }
