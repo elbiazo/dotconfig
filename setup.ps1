@@ -94,6 +94,9 @@ function WindowsConfig
 		Invoke-Expression ("winget install {0:}" -f $prog)
 	}
 
+	# Install tree-sitter-cli which is requirement for nvim 
+	npm install -g tree-sitter-cli
+
 	$nvim_dst = Join-Path $env:USERPROFILE "/AppData/Local/nvim/" 
 	$nvim_src = Join-Path $PWD "/nvim/"
 	Set-Symlink $nvim_dst $nvim_src
