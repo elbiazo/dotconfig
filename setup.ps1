@@ -30,6 +30,8 @@ $MainFunction = {
 	{
 		if (Get-Yes-No "Remove existing nvim?")
 		{
+			# Need to remove all the dependency or else it will cause problem later
+			Remove-Item -r -Force $env:LOCALAPPDATA/nvim-data
 			Remove-Item -r -Force ./nvim
 			git clone $NeovimConfig ./nvim
 		} else
