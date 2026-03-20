@@ -31,7 +31,11 @@ $MainFunction = {
 		if (Get-Yes-No "Remove existing nvim?")
 		{
 			# Need to remove all the dependency or else it will cause problem later
-			Remove-Item -r -Force $env:LOCALAPPDATA/nvim-data
+			if ($IsWindows)
+			{
+				Remove-Item -r -Force $env:LOCALAPPDATA/nvim-data
+			}
+
 			Remove-Item -r -Force ./nvim
 			git clone $NeovimConfig ./nvim
 		} else
@@ -64,7 +68,7 @@ function LinuxConfig
 		sudo apt purge vim -y
 		sudo add-apt-repository ppa:neovim-ppa/unstable
 		sudo apt-get update
-		sudo apt-get install neovim clangd unzip -y
+		sudo apt-get install neovim clangd unzip curl -y
 	} else
 	{
 		info("Neovim found")
