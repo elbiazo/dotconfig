@@ -84,6 +84,16 @@ function LinuxConfig
 		info("TMUX found")
 	}
 
+	if (!(Get-Command tmux -ErrorAction SilentlyContinue))
+	{
+		info("Neovim not found, installing")
+		sudo apt-get update
+		sudo apt-get install build-essential -y
+	} else
+	{
+		info("TMUX found")
+	}
+
 	$nvim_dst = Join-Path $env:HOME "/.config/nvim/" 
 	$nvim_src = Join-Path $PWD "/nvim/"
 	Set-Symlink $nvim_dst $nvim_src
