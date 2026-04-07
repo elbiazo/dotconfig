@@ -89,7 +89,7 @@ Function Set-Path {
 
 Set-Alias -Name dev -Value Enter-Dev
 Set-Alias -Name pdev -Value Enter-PreviewDev
-Set-Alias -Name gh -Value Get-Help
+Set-Alias -Name ghp -Value Get-Help
 Set-Alias -Name ll -Value ls
 Set-Alias -Name sl -Value ls -Force
 Set-Alias -Name vim -Value nvim
