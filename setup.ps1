@@ -14,7 +14,7 @@ $WingetPrograms = @(
     "OpenJS.NodeJS.LTS",
     "Microsoft.Git",
     "Microsoft.VisualStudioCode",
-    "Zellij.Zellij"
+    "marlocarlo.psmux"
 )
 
 # --- Configuration variables ---
@@ -117,13 +117,17 @@ function WindowsConfig {
     $nvim_src = Join-Path $PWD "/nvim/"
     Set-Symlink $nvim_dst $nvim_src
 
+    $tmux_dst = Join-Path $env:USERPROFILE ".tmux.conf"
+    $tmux_src = Join-Path $PWD "/tmux/tmux.conf"
+    Set-Symlink $tmux_dst $tmux_src
+
     # Symlink WezTerm config
     Set-Symlink "$HOME/.wezterm.lua" "$PWD/wezterm/.wezterm.lua"
 
     # Symlink PowerShell profile
     Set-Symlink $profile "$PWD/pwsh/Microsoft.PowerShell_profile.ps1"
 
-    Set-Env "ZELLIJ_CONFIG_DIR" "$PSScriptRoot/zellij/"
+    # Set-Env "ZELLIJ_CONFIG_DIR" "$PSScriptRoot/zellij/"
 
     # Optional: symbol server for Process Explorer / WinDbg
     # Set-Env "_NT_SYMBOL_PATH" $sym_config
