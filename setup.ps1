@@ -10,13 +10,11 @@
 # --- Programs to install via winget on Windows ---
 $WingetPrograms = @(
     "Neovim.Neovim",
-    "wez.wezterm",
     "Microsoft.PowerToys",
     "OpenJS.NodeJS.LTS",
     "Microsoft.Git",
-    "Python.Python.3.13",
-    "LLVM.LLVM",
-    "Microsoft.VisualStudioCode"
+    "Microsoft.VisualStudioCode",
+    "Zellij.Zellij"
 )
 
 # --- Configuration variables ---
@@ -125,11 +123,10 @@ function WindowsConfig {
     # Symlink PowerShell profile
     Set-Symlink $profile "$PWD/pwsh/Microsoft.PowerShell_profile.ps1"
 
+    Set-Env "ZELLIJ_CONFIG_DIR" "$PSScriptRoot/zellij/"
+
     # Optional: symbol server for Process Explorer / WinDbg
     # Set-Env "_NT_SYMBOL_PATH" $sym_config
-
-    # Optional: GlazeWM config path override
-    # Set-Env "GLAZEWM_CONFIG_PATH" $PSScriptRoot/glazewm/config.yaml
 }
 
 # Source helpers then run

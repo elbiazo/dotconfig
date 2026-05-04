@@ -7,26 +7,18 @@
 
 # --- Custom Prompt ---
 
-# Emits an OSC 7 escape sequence so WezTerm's multiplexer can track the CWD.
-# Only activates inside WezTerm; VS Code's integrated terminal is left alone
-# because converting backslashes would break its split-terminal CWD detection.
-# References:
-#   https://github.com/wezterm/wezterm/issues/5335
-#   https://wezfurlong.org/wezterm/shell-integration.html#osc-7-on-windows-with-powershell-with-starship
+# Keeps terminal splitters and multiplexers in sync with PowerShell's CWD.
+# PowerShell tracks its provider location separately from the process CWD, so
+# keep both aligned for tools that inspect the shell process.
 function prompt {
-    $osc7 = ""
     $p = $executionContext.SessionState.Path.CurrentLocation
 
-    # Need to change \\ to / for WezTerm multiplexer. Doing this to vscode will break split term because it won't be able to found CWD
-    if ($env:TERM_PROGRAM -eq "WezTerm") {
-        if ($p.Provider.Name -eq "FileSystem") {
-            $ansi_escape = [char]27
-            $provider_path = $p.ProviderPath -Replace "\\", "/"
-            $osc7 = "$ansi_escape]7;file://${env:COMPUTERNAME}/${provider_path}${ansi_escape}\"
-        }
+    if ($p.Provider.Name -eq "FileSystem") {
+        # Without this, zellij new-pane cwd won't work
+        [System.Environment]::CurrentDirectory = $p.ProviderPath
     }
 
-    "${osc7}$p$('>' * ($nestedPromptLevel + 1)) ";
+    "$p$('>' * ($nestedPromptLevel + 1)) ";
 }
 
 # --- Visual Studio Developer Shell ---
