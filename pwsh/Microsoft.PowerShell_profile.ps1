@@ -106,7 +106,7 @@ function Format-NumHex {
 Set-Alias -Name dev   -Value Enter-Dev
 Set-Alias -Name pdev  -Value Enter-PreviewDev
 Set-Alias -Name ghp    -Value Get-Help
-Set-Alias -Name ll    -Value ls
+Set-Alias -Name ll    -Value ls -la
 Set-Alias -Name sl    -Value ls -Force
 Set-Alias -Name vim   -Value nvim
 Set-Alias -Name hex   -Value Format-NumHex

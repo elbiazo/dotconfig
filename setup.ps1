@@ -14,7 +14,8 @@ $WingetPrograms = @(
     "OpenJS.NodeJS.LTS",
     "Microsoft.Git",
     "Microsoft.VisualStudioCode",
-    "marlocarlo.psmux"
+    "marlocarlo.psmux",
+    "microsoft.coreutils"
 )
 
 # --- Configuration variables ---
