@@ -122,9 +122,6 @@ function WindowsConfig {
     $tmux_src = Join-Path $PWD "/tmux/tmux.conf"
     Set-Symlink $tmux_dst $tmux_src
 
-    # Symlink WezTerm config
-    Set-Symlink "$HOME/.wezterm.lua" "$PWD/wezterm/.wezterm.lua"
-
     # Symlink PowerShell profile
     Set-Symlink $profile "$PWD/pwsh/Microsoft.PowerShell_profile.ps1"
 
