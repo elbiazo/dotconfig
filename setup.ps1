@@ -123,7 +123,7 @@ function WindowsConfig {
     Set-Symlink $tmux_dst $tmux_src
 
     # Symlink PowerShell profile
-    Set-Symlink $profile "$PWD/pwsh/Microsoft.PowerShell_profile.ps1"
+    Set-Symlink "$HOME\Documents\PowerShell\Profile.ps1" "$PWD/pwsh/Profile.ps1"
 
     # Set-Env "ZELLIJ_CONFIG_DIR" "$PSScriptRoot/zellij/"
 
