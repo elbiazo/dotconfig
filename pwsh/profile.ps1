@@ -38,7 +38,8 @@ function Enter-Dev {
         if ($vs_selection -lt 0 -or $vs_selection -ge $vspath.Length) {
             Write-Error "Invalid selection. Exiting."
             return
-        } else {
+        }
+        else {
             $vspath = $vspath[$vs_selection]
         }
     }
@@ -62,8 +63,8 @@ function Enter-PreviewDev {
 # Reloads the PATH from Machine + User scopes into the current process.
 function Update-Path {
     $env:Path = [System.Environment]::GetEnvironmentVariable("Path", "Machine") +
-                ";" +
-                [System.Environment]::GetEnvironmentVariable("Path", "User")
+    ";" +
+    [System.Environment]::GetEnvironmentVariable("Path", "User")
 }
 
 # Adds and/or removes entries from the PATH at the given scope.
