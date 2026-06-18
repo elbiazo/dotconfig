@@ -102,12 +102,13 @@ function Format-NumHex {
     '0x{0:x}' -f $num
 }
 
+function ll { ls.exe -la --color=auto @args }
+
 # --- Aliases ---
 Set-Alias -Name dev   -Value Enter-Dev
 Set-Alias -Name pdev  -Value Enter-PreviewDev
 Set-Alias -Name ghp    -Value Get-Help
-Set-Alias -Name ll    -Value ls
-Set-Alias -Name sl    -Value ls -Force
+Set-Alias -Name sl    -Value ls.exe -Force
 Set-Alias -Name vim   -Value nvim
 Set-Alias -Name hex   -Value Format-NumHex
 Set-Alias -Name count -Value Measure-Object
