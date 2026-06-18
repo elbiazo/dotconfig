@@ -107,7 +107,13 @@ function LinuxConfig {
 function WindowsConfig {
     # Install all programs via winget
     foreach ($prog in $WingetPrograms) {
-        Invoke-Expression ("winget install {0}" -f $prog)
+        $installed = winget list --id $prog --exact 2>$null
+        if ($LASTEXITCODE -eq 0 -and $installed) {
+            info("$prog already installed, skipping")
+            continue
+        }
+
+        Invoke-Expression ("winget install --id {0} --exact" -f $prog)
     }
 
     # tree-sitter-cli is required for Neovim's tree-sitter grammar compilation
@@ -123,9 +129,7 @@ function WindowsConfig {
     Set-Symlink $tmux_dst $tmux_src
 
     # Symlink PowerShell profile
-    Set-Symlink "$HOME\Documents\PowerShell\Profile.ps1" "$PWD/pwsh/Profile.ps1"
-
-    # Set-Env "ZELLIJ_CONFIG_DIR" "$PSScriptRoot/zellij/"
+    Set-Symlink $Profile.CurrentUserAllHosts "$PWD/pwsh/profile.ps1"
 
     # Optional: symbol server for Process Explorer / WinDbg
     # Set-Env "_NT_SYMBOL_PATH" $sym_config
