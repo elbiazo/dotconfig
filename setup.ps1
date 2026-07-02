@@ -142,6 +142,22 @@ function MacConfig {
     $tmux_dst = Join-Path $env:HOME ".tmux.conf"
     Set-Config $tmux_dst "$PWD/tmux/tmux.conf"
 
+    # Install zsh plugins via Homebrew (loaded by zsh/zshrc if present).
+    # These are Homebrew formulae, not PATH commands, so check with `brew list`.
+    if (Get-Command brew -ErrorAction SilentlyContinue) {
+        foreach ($formula in @("zsh-autosuggestions", "zsh-syntax-highlighting")) {
+            brew list --formula $formula *> $null
+            if ($LASTEXITCODE -eq 0) {
+                info("$formula found")
+            } else {
+                info("$formula not found, installing")
+                brew install $formula
+            }
+        }
+    } else {
+        info("Homebrew not found, please install zsh-autosuggestions and zsh-syntax-highlighting manually")
+    }
+
     # Copy zsh config
     $zshrc_dst = Join-Path $env:HOME ".zshrc"
     Set-Config $zshrc_dst "$PWD/zsh/zshrc"

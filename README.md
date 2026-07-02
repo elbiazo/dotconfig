@@ -14,7 +14,9 @@ It will configure the following
 - Add Env Path
 
 On **macOS** only Neovim (vim), tmux, and zsh (`~/.zshrc`) are pulled and
-configured for now.
+configured for now. The zsh config enables colored output (`ls`, prompt,
+completion, `grep`) and installs the `zsh-autosuggestions` and
+`zsh-syntax-highlighting` plugins via Homebrew.
 
 ## Requirements
 

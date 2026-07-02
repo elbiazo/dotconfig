@@ -13,3 +13,47 @@ alias vi='nvim'
 if [ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]; then
     export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 fi
+
+# --- Colors ---
+# Colorize `ls` output (macOS BSD ls). CLICOLOR turns it on; LSCOLORS picks the
+# per-type colors. Order: dir, symlink, socket, pipe, exec, block, char, ...
+# Here: directories = blue, symlinks = magenta, executables = red.
+export CLICOLOR=1
+export LSCOLORS='exfxcxdxbxegedabagacad'
+
+# GNU-style LS_COLORS, used by GNU `ls`/`gls` and by zsh completion menus below.
+# di=dir, ln=symlink, ex=executable, etc. (1;34 = bold blue).
+export LS_COLORS='di=1;34:ln=1;35:so=1;32:pi=1;33:ex=1;31:bd=34;46:cd=34;43:su=0;41:sg=0;46:tw=0;42:ow=0;43'
+
+# Colored, menu-style tab completion that matches LS_COLORS.
+autoload -Uz compinit && compinit
+zstyle ':completion:*' menu select
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# Colored prompt: green user@host, cyan current directory.
+autoload -Uz colors && colors
+setopt PROMPT_SUBST
+PROMPT='%F{green}%n@%m%f %F{cyan}%~%f %# '
+
+# Colorize grep matches.
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# --- Plugins (installed via Homebrew) ---
+# zsh-autosuggestions  : gray inline suggestions from history.
+# zsh-syntax-highlighting : fish-like coloring of valid/invalid commands.
+# Resolve the Homebrew prefix without spawning `brew` on every startup.
+if [ -d /opt/homebrew ]; then
+    ZSH_BREW_PREFIX=/opt/homebrew          # Apple Silicon
+elif [ -d /usr/local/Homebrew ]; then
+    ZSH_BREW_PREFIX=/usr/local             # Intel
+fi
+if [ -n "$ZSH_BREW_PREFIX" ]; then
+    [ -f "$ZSH_BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ] \
+        && source "$ZSH_BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    # syntax-highlighting must be sourced LAST.
+    [ -f "$ZSH_BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] \
+        && source "$ZSH_BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
+unset ZSH_BREW_PREFIX
