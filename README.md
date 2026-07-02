@@ -1,13 +1,20 @@
 # Dot Config
 
-Contains .config for Windows for now.
+Contains .config for Windows, Linux, and macOS.
 
-It will configure following
+Instead of symlinking, configs are **copied** into place. If a config already
+exists at the destination you are prompted (`y/n`); answering yes backs the
+existing config up to `<config>.bak` before copying the new one.
+
+It will configure the following
 
 - Update pwsh config
 - Neovim with kickstarter.nvim
 - wezterm
 - Add Env Path
+
+On **macOS** only Neovim (vim), tmux, and zsh (`~/.zshrc`) are pulled and
+configured for now.
 
 ## Requirements
 

@@ -1,0 +1,15 @@
+# =============================================================================
+# zshrc - zsh user profile (interactive shell)
+#
+# Convenience aliases and PATH additions. Copied to ~/.zshrc by setup.ps1.
+# =============================================================================
+
+# --- Aliases ---
+alias vim='nvim'
+alias vi='nvim'
+
+# --- PATH ---
+# VS Code CLI (`code`) on macOS.
+if [ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]; then
+    export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+fi

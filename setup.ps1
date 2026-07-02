@@ -57,6 +57,8 @@ $MainFunction = {
         WindowsConfig
     } elseif ($IsLinux) {
         LinuxConfig
+    } elseif ($IsMacOS) {
+        MacConfig
     } else {
         info("Unsupported OS")
     }
@@ -93,14 +95,56 @@ function LinuxConfig {
         info("build-essential found")
     }
 
-    # Symlink Neovim config
+    # Copy Neovim config
     $nvim_dst = Join-Path $env:HOME "/.config/nvim/"
     $nvim_src = Join-Path $PWD "/nvim/"
-    Set-Symlink $nvim_dst $nvim_src
+    Set-Config $nvim_dst $nvim_src
 
-    # Symlink tmux config
+    # Copy tmux config
     $tmux_dst = Join-Path $env:HOME ".tmux.conf"
-    Set-Symlink $tmux_dst "$PWD/tmux/tmux.conf"
+    Set-Config $tmux_dst "$PWD/tmux/tmux.conf"
+}
+
+# --- macOS-specific setup ---
+# For now macOS only pulls (handled in the main flow) and configures Neovim
+# (vim) and tmux.
+function MacConfig {
+    # Install Neovim via Homebrew if not present
+    if (!(Get-Command nvim -ErrorAction SilentlyContinue)) {
+        info("Neovim not found, installing")
+        if (Get-Command brew -ErrorAction SilentlyContinue) {
+            brew install neovim
+        } else {
+            info("Homebrew not found, please install Neovim manually")
+        }
+    } else {
+        info("Neovim found")
+    }
+
+    # Install tmux via Homebrew if not present
+    if (!(Get-Command tmux -ErrorAction SilentlyContinue)) {
+        info("tmux not found, installing")
+        if (Get-Command brew -ErrorAction SilentlyContinue) {
+            brew install tmux
+        } else {
+            info("Homebrew not found, please install tmux manually")
+        }
+    } else {
+        info("tmux found")
+    }
+
+    # Copy Neovim config
+    $nvim_dst = Join-Path $env:HOME "/.config/nvim/"
+    $nvim_src = Join-Path $PWD "/nvim/"
+    Set-Config $nvim_dst $nvim_src
+
+    # Copy tmux config
+    $tmux_dst = Join-Path $env:HOME ".tmux.conf"
+    Set-Config $tmux_dst "$PWD/tmux/tmux.conf"
+
+    # Copy zsh config
+    $zshrc_dst = Join-Path $env:HOME ".zshrc"
+    Set-Config $zshrc_dst "$PWD/zsh/zshrc"
 }
 
 # --- Windows-specific setup ---
@@ -119,17 +163,17 @@ function WindowsConfig {
     # tree-sitter-cli is required for Neovim's tree-sitter grammar compilation
     npm install -g tree-sitter-cli
 
-    # Symlink Neovim config
+    # Copy Neovim config
     $nvim_dst = Join-Path $env:USERPROFILE "/AppData/Local/nvim/"
     $nvim_src = Join-Path $PWD "/nvim/"
-    Set-Symlink $nvim_dst $nvim_src
+    Set-Config $nvim_dst $nvim_src
 
     $tmux_dst = Join-Path $env:USERPROFILE ".tmux.conf"
     $tmux_src = Join-Path $PWD "/tmux/tmux.conf"
-    Set-Symlink $tmux_dst $tmux_src
+    Set-Config $tmux_dst $tmux_src
 
-    # Symlink PowerShell profile
-    Set-Symlink $Profile.CurrentUserAllHosts "$PWD/pwsh/profile.ps1"
+    # Copy PowerShell profile
+    Set-Config $Profile.CurrentUserAllHosts "$PWD/pwsh/profile.ps1"
 
     # Optional: symbol server for Process Explorer / WinDbg
     # Set-Env "_NT_SYMBOL_PATH" $sym_config

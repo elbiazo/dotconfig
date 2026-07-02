@@ -5,38 +5,48 @@
 # Sourced by setup.ps1 before any other logic runs.
 # =============================================================================
 
-# --- Symlink Management ---
+# --- Config Management ---
 
-# Creates a symbolic link from $dst -> $src.
-# If $dst already exists it is either backed up (.old) or removed, depending
-# on the -backup switch.
-function Set-Symlink([string]$dst, [string]$src, [switch]$backup) {
-    info("Setting Symlink {0} <- {1}" -f $dst, $src)
+# Copies a config from $src to $dst.
+# If $dst already exists the user is prompted before overwriting. When the user
+# confirms, the existing config is backed up to "$dst.bak" (any previous backup
+# is replaced) and then $src is copied into place. Answering 'n' leaves the
+# existing config untouched.
+function Set-Config([string]$dst, [string]$src) {
+    # Normalise trailing slashes so directory copies land at the right path.
+    $dst = $dst.TrimEnd('/', '\')
+    $src = $src.TrimEnd('/', '\')
+
+    info("Setting Config {0} <- {1}" -f $dst, $src)
 
     if (Get-ItemExist($dst)) {
-        if ($backup) {
-            info($dst + " exists, backing up to .old")
-            Move-Item -Path $dst -Destination ($dst + ".old") -Force
-        } else {
-            info($dst + " exists, removing it")
-            if ($IsWindows) {
-                Remove-Item $dst -r -Force
-            } else {
-                # On Linux the trailing '/' must be stripped because a symlink
-                # is a file, not a directory.
-                Remove-Item -Force $dst.TrimEnd('/')
+        if (Get-Yes-No ("{0} already exists. Overwrite?" -f $dst)) {
+            $bak = $dst + ".bak"
+            info("Backing up {0} -> {1}" -f $dst, $bak)
+            if (Get-ItemExist($bak)) {
+                Remove-Item -Recurse -Force $bak
             }
+            Move-Item -Path $dst -Destination $bak -Force
+        } else {
+            info("Keeping existing {0}, skipping" -f $dst)
+            return
         }
     }
 
-    New-Item -Path $dst -ItemType SymbolicLink -Value $src -Force | Out-Null
+    # Ensure the parent directory exists before copying.
+    $parent = Split-Path -Parent $dst
+    if ($parent -and !(Test-Path $parent)) {
+        New-Item -Path $parent -ItemType Directory -Force | Out-Null
+    }
+
+    Copy-Item -Path $src -Destination $dst -Recurse -Force
 }
 
 # --- User Prompts ---
 
 # Prompts the user with a yes/no question and returns $true for 'y'.
 function Get-Yes-No([string]$msg) {
-    if ((Read-Host $msg " [y/n]") -eq "y") {
+    if ((Read-Host ($msg + " [y/n]")) -eq "y") {
         return $true
     } else {
         return $false
