@@ -57,13 +57,20 @@ try {
     $script:MockRead = "n"
     Assert (-not (Get-Yes-No "continue?")) "Get-Yes-No: false when input is n"
 
-    # --- Set-Config: fresh copy (no existing dst, no prompt) ---
+    # --- Set-Config: fresh copy (no existing dst, prompts to copy -> yes) ---
     $src = Join-Path $tmp "src.txt"
     $dst = Join-Path $tmp "dst.txt"
     "content-v1" | Set-Content $src
+    $script:MockRead = "y"
     Set-Config $dst $src
-    Assert (Test-Path $dst) "Set-Config: copies to a new destination"
+    Assert (Test-Path $dst) "Set-Config: copies to a new destination when confirmed"
     Assert ((Get-Content $dst) -eq "content-v1") "Set-Config: destination matches source"
+
+    # --- Set-Config: skip fresh copy (prompts to copy -> no) ---
+    $skipDst = Join-Path $tmp "skip.txt"
+    $script:MockRead = "n"
+    Set-Config $skipDst $src
+    Assert (-not (Test-Path $skipDst)) "Set-Config: skips a new destination when declined"
 
     # --- Set-Config: overwrite with backup (Get-Yes-No mocked -> yes) ---
     function Get-Yes-No([string]$m) { return $true }

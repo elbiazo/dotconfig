@@ -8,10 +8,11 @@
 # --- Config Management ---
 
 # Copies a config from $src to $dst.
-# If $dst already exists the user is prompted before overwriting. When the user
-# confirms, the existing config is backed up to "$dst.bak" (any previous backup
-# is replaced) and then $src is copied into place. Answering 'n' leaves the
-# existing config untouched.
+# The user is always prompted y/n before anything is copied; answering 'n' skips
+# this config. If $dst already exists the prompt asks to overwrite, and on 'y'
+# the existing config is backed up to "$dst.bak" (any previous backup is
+# replaced) before $src is copied into place. If $dst does not exist the prompt
+# simply confirms the copy.
 function Set-Config([string]$dst, [string]$src) {
     # Normalise trailing slashes so directory copies land at the right path.
     $dst = $dst.TrimEnd('/', '\')
@@ -29,6 +30,11 @@ function Set-Config([string]$dst, [string]$src) {
             Move-Item -Path $dst -Destination $bak -Force
         } else {
             info("Keeping existing {0}, skipping" -f $dst)
+            return
+        }
+    } else {
+        if (!(Get-Yes-No ("Copy config to {0}?" -f $dst))) {
+            info("Skipping {0}" -f $dst)
             return
         }
     }

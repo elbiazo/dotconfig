@@ -8,6 +8,11 @@
 alias vim='nvim'
 alias vi='nvim'
 
+# Linux-style `ls` shortcuts (Ubuntu defaults).
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
 # --- PATH ---
 # VS Code CLI (`code`) on macOS.
 if [ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]; then
