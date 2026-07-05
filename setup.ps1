@@ -146,18 +146,6 @@ function MacConfig {
         info("tree-sitter found")
     }
 
-    # Install PowerShell via Homebrew if not present
-    if (!(Get-Command pwsh -ErrorAction SilentlyContinue)) {
-        info("pwsh not found, installing")
-        if (Get-Command brew -ErrorAction SilentlyContinue) {
-            brew install powershell
-        } else {
-            info("Homebrew not found, please install powershell manually")
-        }
-    } else {
-        info("pwsh found")
-    }
-
     # Copy Neovim config
     $nvim_dst = Join-Path $env:HOME "/.config/nvim/"
     $nvim_src = Join-Path $PWD "/nvim/"
