@@ -1,2 +1,3 @@
-nvim/
+common/nvim/
 tmp/
+__pycache__/

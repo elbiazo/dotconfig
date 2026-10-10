@@ -1,5 +1,5 @@
 # =============================================================================
-# Microsoft.PowerShell_profile.ps1 - PowerShell user profile
+# profile.ps1 - Windows PowerShell user profile
 #
 # Custom prompt (with WezTerm OSC 7 support), Visual Studio dev shell helpers,
 # PATH utilities, and convenience aliases.

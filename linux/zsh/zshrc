@@ -1,0 +1,14 @@
+# Linux-specific settings, sourced after common/zsh/zshrc.
+
+alias ls='ls --color=auto'
+
+if (( ! ${+functions[_zsh_autosuggest_start]} )) \
+    && [[ -r /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+    source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+# Syntax highlighting must be loaded after the other options and plugins.
+if (( ! ${+functions[_zsh_highlight]} )) \
+    && [[ -r /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi

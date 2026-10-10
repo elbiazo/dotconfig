@@ -1,0 +1,39 @@
+# macOS-specific settings, sourced after common/zsh/zshrc.
+
+# --- PATH ---
+# VS Code CLI (`code`) on macOS.
+if [[ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" \
+    && ":$PATH:" != *":/Applications/Visual Studio Code.app/Contents/Resources/app/bin:"* ]]; then
+    export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+fi
+
+# --- Colors ---
+# Colorize `ls` output (macOS BSD ls). CLICOLOR turns it on; LSCOLORS picks the
+# per-type colors. Order: dir, symlink, socket, pipe, exec, block, char, ...
+# Here: directories = blue, symlinks = magenta, executables = red.
+export CLICOLOR=1
+export LSCOLORS='exfxcxdxbxegedabagacad'
+
+# --- Plugins (installed via Homebrew) ---
+# zsh-autosuggestions  : gray inline suggestions from history.
+# zsh-syntax-highlighting : fish-like coloring of valid/invalid commands.
+# Resolve the Homebrew prefix without spawning `brew` on every startup.
+if [[ -n ${HOMEBREW_PREFIX:-} ]]; then
+    ZSH_BREW_PREFIX=$HOMEBREW_PREFIX
+elif [ -d /opt/homebrew ]; then
+    ZSH_BREW_PREFIX=/opt/homebrew          # Apple Silicon
+elif [ -d /usr/local/Homebrew ]; then
+    ZSH_BREW_PREFIX=/usr/local             # Intel
+fi
+if [[ -n ${ZSH_BREW_PREFIX:-} ]]; then
+    if (( ! ${+functions[_zsh_autosuggest_start]} )) \
+        && [[ -r "$ZSH_BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+        source "$ZSH_BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    fi
+    # Syntax highlighting must be loaded after the other options and plugins.
+    if (( ! ${+functions[_zsh_highlight]} )) \
+        && [[ -r "$ZSH_BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+        source "$ZSH_BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    fi
+fi
+unset ZSH_BREW_PREFIX

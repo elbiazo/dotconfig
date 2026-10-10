@@ -1,0 +1,38 @@
+[neovim]
+repository = "git@github.com:elbiazo/kickstart.nvim.git"
+
+[windows]
+winget = [
+    { package = "Neovim.Neovim" },
+    { package = "Microsoft.PowerToys" },
+    { package = "OpenJS.NodeJS.LTS" },
+    { package = "Microsoft.Git" },
+    { package = "Microsoft.VisualStudioCode" },
+    { package = "marlocarlo.psmux" },
+    { package = "microsoft.coreutils" },
+]
+npm = ["tree-sitter-cli"]
+
+[linux]
+# All listed commands must exist to skip installing a package.
+# Without commands, setup queries the package manager instead.
+apt = [
+    { package = "neovim", commands = ["nvim"], ppa = "ppa:neovim-ppa/unstable" },
+    { package = "tmux", commands = ["tmux"] },
+    { package = "clangd", commands = ["clangd"] },
+    { package = "unzip", commands = ["unzip"] },
+    { package = "curl", commands = ["curl"] },
+    { package = "build-essential", commands = ["make", "cc"] },
+    { package = "zsh", commands = ["zsh"] },
+    { package = "zsh-autosuggestions" },
+    { package = "zsh-syntax-highlighting" },
+]
+
+[mac]
+brew = [
+    { package = "neovim", commands = ["nvim"] },
+    { package = "tmux", commands = ["tmux"] },
+    { package = "tree-sitter-cli", commands = ["tree-sitter"] },
+    { package = "zsh-autosuggestions" },
+    { package = "zsh-syntax-highlighting" },
+]
